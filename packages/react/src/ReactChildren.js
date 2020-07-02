@@ -90,6 +90,7 @@ function getPooledTraverseContext(
   }
 }
 
+// 释放一个对象到池子中去
 function releaseTraverseContext(traverseContext) {
   traverseContext.result = null;
   traverseContext.keyPrefix = null;
@@ -151,7 +152,7 @@ function traverseAllChildrenImpl(
     callback(
       traverseContext,
       children,
-      // If it's the only child, treat the name as if it was wrapped in an array
+      // If it's the only childtreat the name as if it was wrapped in an array
       // so that it's consistent if the number of children grows.
       nameSoFar === '' ? SEPARATOR + getComponentKey(children, 0) : nameSoFar,
     );
@@ -221,6 +222,7 @@ function traverseAllChildrenImpl(
           'instead.' +
           ReactDebugCurrentFrame.getStackAddendum();
       }
+      // 隐式转换成string类型
       const childrenString = '' + children;
       invariant(
         false,

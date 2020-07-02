@@ -7,7 +7,7 @@
 
 import invariant from 'shared/invariant';
 import warningWithoutStack from 'shared/warningWithoutStack';
-import {REACT_ELEMENT_TYPE} from 'shared/ReactSymbols';
+import { REACT_ELEMENT_TYPE } from 'shared/ReactSymbols';
 
 import ReactCurrentOwner from './ReactCurrentOwner';
 
@@ -50,7 +50,7 @@ function hasValidKey(config) {
 }
 
 function defineKeyPropWarningGetter(props, displayName) {
-  const warnAboutAccessingKey = function() {
+  const warnAboutAccessingKey = function () {
     if (!specialPropKeyWarningShown) {
       specialPropKeyWarningShown = true;
       warningWithoutStack(
@@ -71,7 +71,7 @@ function defineKeyPropWarningGetter(props, displayName) {
 }
 
 function defineRefPropWarningGetter(props, displayName) {
-  const warnAboutAccessingRef = function() {
+  const warnAboutAccessingRef = function () {
     if (!specialPropRefWarningShown) {
       specialPropRefWarningShown = true;
       warningWithoutStack(
@@ -114,7 +114,7 @@ function defineRefPropWarningGetter(props, displayName) {
 // 这就是个工厂函数，帮助我们创建 React Element 的
 // 内部代码很简单，无非多了一个 $$typeof 帮助我们标识
 // 这是一个 React Element
-const ReactElement = function(type, key, ref, self, source, owner, props) {
+const ReactElement = function (type, key, ref, self, source, owner, props) {
   const element = {
     // This tag allows us to uniquely identify this as a React Element
     $$typeof: REACT_ELEMENT_TYPE,
@@ -175,7 +175,7 @@ const ReactElement = function(type, key, ref, self, source, owner, props) {
  * 根据 type 返回一个新的 ReactElement
  * See https://reactjs.org/docs/react-api.html#createelement
  */
-  export function createElement(type, config, children) {
+export function createElement(type, config, children) {
   let propName;
 
   // Reserved names are extracted
@@ -255,6 +255,7 @@ const ReactElement = function(type, key, ref, self, source, owner, props) {
       }
     }
   }
+  
   return ReactElement(
     type,
     key,

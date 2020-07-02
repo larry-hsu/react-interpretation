@@ -205,6 +205,7 @@ function ReactBatch(root: ReactRoot) {
   this._children = null;
   this._defer = true;
 }
+
 ReactBatch.prototype.render = function(children: ReactNodeList) {
   invariant(
     this._defer,
@@ -224,6 +225,7 @@ ReactBatch.prototype.render = function(children: ReactNodeList) {
   );
   return work;
 };
+
 ReactBatch.prototype.then = function(onComplete: () => mixed) {
   if (this._didComplete) {
     onComplete();
@@ -235,6 +237,7 @@ ReactBatch.prototype.then = function(onComplete: () => mixed) {
   }
   callbacks.push(onComplete);
 };
+
 ReactBatch.prototype.commit = function() {
   const internalRoot = this._root._internalRoot;
   let firstBatch = internalRoot.firstBatch;
@@ -298,6 +301,7 @@ ReactBatch.prototype.commit = function() {
     firstBatch.render(firstBatch._children);
   }
 };
+
 ReactBatch.prototype._onComplete = function() {
   if (this._didComplete) {
     return;
@@ -332,6 +336,7 @@ function ReactWork() {
   // 这里固定了一下 this，以防取不到正确的 this
   this._onCommit = this._onCommit.bind(this);
 }
+
 ReactWork.prototype.then = function(onCommit: () => mixed): void {
   if (this._didCommit) {
     onCommit();
@@ -342,7 +347,8 @@ ReactWork.prototype.then = function(onCommit: () => mixed): void {
     callbacks = this._callbacks = [];
   }
   callbacks.push(onCommit);
-};
+}
+
 ReactWork.prototype._onCommit = function(): void {
   if (this._didCommit) {
     return;
@@ -374,6 +380,7 @@ function ReactRoot(
   const root = createContainer(container, isConcurrent, hydrate);
   this._internalRoot = root;
 }
+
 ReactRoot.prototype.render = function(
   children: ReactNodeList,
   callback: ?() => mixed,
@@ -509,6 +516,7 @@ function legacyCreateRootFromDOMContainer(
   const shouldHydrate =
     forceHydrate || shouldHydrateDueToLegacyHeuristic(container);
   // First clear any existing content.
+  // 客户端渲染的时候
   if (!shouldHydrate) {
     let warned = false;
     let rootSibling;
@@ -547,14 +555,14 @@ function legacyCreateRootFromDOMContainer(
   }
   // Legacy roots are not async by default.
   // 对于 Root 来说不需要异步
-  const isConcurrent = false;
+  const isConcurrent = false; //同步还是异步
   return new ReactRoot(container, isConcurrent, shouldHydrate);
 }
 
 function legacyRenderSubtreeIntoContainer(
   parentComponent: ?React$Component<any, any>,
   children: ReactNodeList,
-  container: DOMContainer,
+  container: DOMContainer, 
   forceHydrate: boolean,
   callback: ?Function,
 ) {
@@ -701,7 +709,7 @@ const ReactDOM: Object = {
   // 那么参数含义就不细讲了，另外第三个参数笔者没有用过，有兴趣了解的可以自行浏览文档
   render(
     element: React$Element<any>,
-    container: DOMContainer,
+    container: DOMContainer, // document.getElementById('root')
     callback: ?Function,
   ) {
     invariant(
@@ -723,7 +731,7 @@ const ReactDOM: Object = {
       null,
       element,
       container,
-      false,
+      false, // false 表示客户端渲染
       callback,
     );
   },

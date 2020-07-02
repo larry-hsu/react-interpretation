@@ -171,6 +171,7 @@ export function createFiberRoot(
   hydrate: boolean,
 ): FiberRoot {
   // FiberRootNode 内部创建了很多属性
+  // FiberRootNode 实例
   const root: FiberRoot = (new FiberRootNode(containerInfo, hydrate): any);
 
   // Cyclic construction. This cheats the type system right now because
@@ -183,7 +184,9 @@ export function createFiberRoot(
   // document.querySelector('#root')._reactRootContainer._internalRoot
   // 另外 fiber tree 的结构可以看我画的这个图
   // https://user-gold-cdn.xitu.io/2019/5/2/16a7672bc5152431?w=1372&h=2024&f=png&s=316240
+  // FiberNode 的实例
   const uninitializedFiber = createHostRootFiber(isConcurrent);
+  // 相互引用
   root.current = uninitializedFiber;
   uninitializedFiber.stateNode = root;
 
