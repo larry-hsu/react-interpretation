@@ -48,7 +48,8 @@ function computeExpirationBucket(
   expirationInMs,
   bucketSizeMs,
 ): ExpirationTime {
-  // currentTime 一般是通过 performance.now() - 程序一开始进来就执行一次的 performance.now() 然后再通过 msToExpirationTime 算出来的
+  // currentTime 一般是通过 performance.now() - 程序一开始进来就执行一次的 performance.now() 
+  // 然后再通过 msToExpirationTime 算出来的
   // 1073741823 毫秒（也就是同步）换算成天是 12 天多点 10737418240
   // 另外 | 0 + 1 * bucketSizeMs / UNIT_SIZE 是为了抹平一段时间内的时间差
   return (

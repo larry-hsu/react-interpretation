@@ -293,6 +293,9 @@ export function updateContainer(
   const currentTime = requestCurrentTime();
   // expirationTime 代表优先级，数字越大优先级越高
   // sync 的数字是最大的，所以优先级也是最高的
+  // expirationTime 指的是任务的过期时间
+  // React 根据任务的优先级和当前时间来计算出一个任务的执行截止时间
+  // 简单来说，任务的过期时间是通过当前时间加上一个常量（任务优先级不同常量不同）计算出来的。
   const expirationTime = computeExpirationForFiber(currentTime, current);
   return updateContainerAtExpirationTime(
     element,

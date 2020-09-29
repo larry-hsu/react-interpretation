@@ -49,6 +49,7 @@ import {error, warn} from './withComponentStack';
 import {enableStableConcurrentModeAPIs} from 'shared/ReactFeatureFlags';
 
 const React = {
+  // 提供了一堆处理 props.children 的方法
   Children: {
     map,
     forEach,
@@ -63,9 +64,10 @@ const React = {
 
   createContext,
   forwardRef,
+
+
   lazy,
   memo,
-
   error,
   warn,
 
@@ -80,12 +82,15 @@ const React = {
   useRef,
   useState,
 
+  // 这四个都是 React 提供的组件, 他们都只是占位符，都是 Symbol
   Fragment: REACT_FRAGMENT_TYPE,
   Profiler: REACT_PROFILER_TYPE,
   StrictMode: REACT_STRICT_MODE_TYPE,
   Suspense: REACT_SUSPENSE_TYPE,
 
+  // 用来创建ReactElement
   createElement: __DEV__ ? createElementWithValidation : createElement,
+  
   cloneElement: __DEV__ ? cloneElementWithValidation : cloneElement,
   createFactory: __DEV__ ? createFactoryWithValidation : createFactory,
   isValidElement: isValidElement,
@@ -94,6 +99,7 @@ const React = {
 
   unstable_ConcurrentMode: REACT_CONCURRENT_MODE_TYPE,
 
+  // 忽略
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: ReactSharedInternals,
 };
 

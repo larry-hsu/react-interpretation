@@ -1651,9 +1651,11 @@ function computeExpirationForFiber(currentTime: ExpirationTime, fiber: Fiber) {
     if (fiber.mode & ConcurrentMode) {
       if (isBatchingInteractiveUpdates) {
         // This is an interactive update
+        // 交互事件
         expirationTime = computeInteractiveExpiration(currentTime);
       } else {
         // This is an async update
+        // 异步事件
         expirationTime = computeAsyncExpiration(currentTime);
       }
       // If we're in the middle of rendering a tree, do not update at the same
@@ -2074,6 +2076,9 @@ if (__DEV__) {
 }
 
 function recomputeCurrentRendererTime() {
+  // now() 是 performance.now()
+  // originalStartTimeMs 是 React 应用初始化时就会生成的一个变量
+  // 值也是 performance.now()
   const currentTimeMs = now() - originalStartTimeMs;
   currentRendererTime = msToExpirationTime(currentTimeMs);
 }

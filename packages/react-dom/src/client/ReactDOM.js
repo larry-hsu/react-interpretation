@@ -385,7 +385,7 @@ ReactRoot.prototype.render = function(
   children: ReactNodeList,
   callback: ?() => mixed,
 ): Work {
-  // 这里指 FiberRoot
+  // 这里指 FiberRootNode
   const root = this._internalRoot;
   // ReactWork 的功能就是为了在组件渲染或更新后把所有传入
   // ReactDom.render 中的回调函数全部执行一遍
@@ -561,8 +561,8 @@ function legacyCreateRootFromDOMContainer(
 
 function legacyRenderSubtreeIntoContainer(
   parentComponent: ?React$Component<any, any>,
-  children: ReactNodeList,
-  container: DOMContainer, 
+  children: ReactNodeList,  // 组件
+  container: DOMContainer,  // #root
   forceHydrate: boolean,
   callback: ?Function,
 ) {
@@ -708,7 +708,7 @@ const ReactDOM: Object = {
   // 想必大家都写过 ReactDOM.render(<APP />, document.getElementById('root')
   // 那么参数含义就不细讲了，另外第三个参数笔者没有用过，有兴趣了解的可以自行浏览文档
   render(
-    element: React$Element<any>,
+    element: React$Element<any>, // 组件
     container: DOMContainer, // document.getElementById('root')
     callback: ?Function,
   ) {
